@@ -801,6 +801,7 @@
                     {{ __('home.footer_trust') }}
                 </p>
             </div>
+            
 
             <div class="flex flex-wrap justify-center gap-5 text-gray-400 text-sm">
 
