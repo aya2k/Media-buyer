@@ -17,12 +17,12 @@ RUN composer install --no-dev --optimize-autoloader
 RUN touch database/database.sqlite
 
 ENV DB_CONNECTION=sqlite
+ENV CACHE_STORE=file
+ENV SESSION_DRIVER=file
+ENV QUEUE_CONNECTION=sync
 
 RUN php artisan key:generate
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
 
-EXPOSE 10000
+EXPOSE 8080
 
-CMD php artisan serve --host=0.0.0.0 --port=10000
+CMD php artisan serve --host=0.0.0.0 --port=8080
