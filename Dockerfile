@@ -1,27 +1,32 @@
+# استخدم PHP 8.3 CLI
 FROM php:8.3-cli
 
+# تثبيت الأدوات المطلوبة
 RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    libsqlite3-dev
+    libsqlite3-dev \
+    libzip-dev \
+    && docker-php-ext-install pdo_sqlite zip
 
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# مجلد العمل
 WORKDIR /app
 
+# انسخ المشروع كله
 COPY . .
 
+# تثبيت الحزم
 RUN composer install --no-dev --optimize-autoloader
 
+# إنشاء ملف SQLite إذا المشروع يحتاجه
 RUN touch database/database.sqlite
 
-ENV DB_CONNECTION=sqlite
-ENV CACHE_STORE=file
-ENV SESSION_DRIVER=file
-ENV QUEUE_CONNECTION=sync
-
-# لا تعمل key generate، Railway يقرأ APP_KEY من env
+# exposed port Railway
 EXPOSE 8080
 
+# CMD يستخدم PORT من Railway
 CMD php artisan serve --host=0.0.0.0 --port=$PORT
