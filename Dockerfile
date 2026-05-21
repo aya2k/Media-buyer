@@ -24,4 +24,4 @@ ENV QUEUE_CONNECTION=sync
 # لا تعمل key generate، Railway يقرأ APP_KEY من env
 EXPOSE 8080
 
-CMD php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
