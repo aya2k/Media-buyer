@@ -23,7 +23,7 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 # إنشاء ملف SQLite إذا المشروع يحتاجه
-RUN touch database/database.sqlite
+# SQLite موجود مسبقًا في المشروع
 
 # exposed port Railway
 EXPOSE 8080
